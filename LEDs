@@ -1,0 +1,30 @@
+#include "mbed.h"
+
+DigitalOut led1(LED1);
+DigitalOut led2(LED2);
+
+void blinkLed1() {
+    while (1) {
+        led1 = !led1;  // Turn on and off Led
+        ThisThread::sleep_for(2000ms);  // Wait for 2 seconds
+    }
+}
+
+void blinkLed2() {
+    while (1) {
+        led2 = !led2;  // Turn on and off Led
+        ThisThread::sleep_for(5000ms);  // Wait for 5 seconds
+    }
+}
+
+int main() {
+    Thread thread1;
+    Thread thread2;
+    
+    thread1.start(blinkLed1);
+    thread2.start(blinkLed2);
+    
+    while (1) {
+        ThisThread::sleep_for(osWaitForever);
+    }
+}
